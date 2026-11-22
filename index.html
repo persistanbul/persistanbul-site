@@ -10,7 +10,7 @@
 :root{
   --black:#000;--ink:#0b0b0b;--panel:#111;--line:rgba(255,255,255,.14);
   --white:#fff;--muted:rgba(255,255,255,.62);
-  --red:#ED1C24;--gold:#CE982B;--silver:#E9E9E9;
+  --red:#ED1C24;--gold:#CE982B;--silver:#E9E9E9;--blue:#6CC3F5;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -92,7 +92,7 @@ img{display:block;max-width:100%}
 .cover h1{font-weight:300;font-size:clamp(40px,7vw,104px);letter-spacing:.32em;text-transform:uppercase;text-align:center;padding:0 20px;line-height:1.1}
 .cover h1 i{display:block;font-style:normal;font-size:.22em;letter-spacing:.6em;color:var(--c);margin-top:18px;font-weight:600}
 @media (max-width:900px){.cover{margin:-170px -22px 50px}}
-.prod,section.unit.prod{--c:var(--red)}.talent,section.unit.talent{--c:var(--silver)}.learn,section.unit.learn{--c:var(--gold)}
+.prod,section.unit.prod{--c:var(--red)}.talent,section.unit.talent{--c:var(--blue)}.learn,section.unit.learn{--c:var(--gold)}
 
 /* SECTIONS */
 section.unit{padding:140px 40px;border-bottom:1px solid var(--line);--c:var(--white)}
@@ -156,7 +156,7 @@ section.unit.view::before{content:"";position:absolute;inset:-20%;z-index:-1;poi
              radial-gradient(50% 45% at 85% 75%,color-mix(in srgb,var(--c) calc(var(--glow,38%) * .75),transparent),transparent 72%),
              radial-gradient(80% 60% at 50% 110%,color-mix(in srgb,var(--c) calc(var(--glow,38%) * .45),transparent),transparent 70%);
   animation:drift 18s ease-in-out infinite alternate}
-section.unit.talent{--glow:30%}
+
 .back{display:inline-block;max-width:1240px;margin:0 auto 60px;font-size:14px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);transition:color .2s}
 .back:hover{color:var(--c)}
 section.unit .back{display:block}
@@ -225,7 +225,7 @@ footer img{height:30px;width:auto;opacity:.9}
   <div class="hero-in">
     <h1 lang="en">
       <a href="#production" class="w" style="--c:var(--red);--d:.25s">We shoot<i>.</i></a>
-      <a href="#talent" class="w" style="--c:var(--silver);--d:.45s">We influence<i>.</i></a>
+      <a href="#talent" class="w" style="--c:var(--blue);--d:.45s">We influence<i>.</i></a>
       <a href="#learning" class="w" style="--c:var(--gold);--d:.65s">We play<i>.</i></a>
     </h1>
   </div>
@@ -334,7 +334,7 @@ footer img{height:30px;width:auto;opacity:.9}
   <div class="team">
     <div class="person reveal">
       <div class="ph" style="background-image:url('assets/team/sarper.jpg')"></div>
-      <div class="tx"><h3>Sarper</h3><div class="role" lang="en"><b style="color:var(--silver)">Pers Talent</b></div></div>
+      <div class="tx"><h3>Sarper</h3><div class="role" lang="en"><b style="color:var(--blue)">Pers Talent</b></div></div>
     </div>
     <div class="person reveal">
       <div class="ph" style="background-image:url('assets/team/alper.jpg')"></div>
@@ -377,7 +377,7 @@ document.querySelectorAll('[data-unit]').forEach(el=>el.addEventListener('click'
 
 /* ---------- SAYFALAR (hash) ---------- */
 const VIEWS=['home','production','talent','learning','who'];
-const COL={production:'var(--red)',talent:'var(--silver)',learning:'var(--gold)',who:'#fff'};
+const COL={production:'var(--red)',talent:'var(--blue)',learning:'var(--gold)',who:'#fff'};
 function route(){
   let h=location.hash.slice(1);
   if(!VIEWS.includes(h)){
