@@ -69,6 +69,23 @@ img{display:block;max-width:100%}
 .door .go{margin-top:22px;font-size:14px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;display:inline-flex;gap:12px;align-items:center}
 .door .go::after{content:"→";transition:transform .3s}
 .door:hover .go::after{transform:translateX(8px)}
+.door{isolation:isolate}
+.door::after{content:"";position:absolute;inset:-24px;z-index:-2;background:var(--img) center/cover no-repeat;filter:blur(var(--blur,12px)) grayscale(1);transform:scale(1.02);transition:transform 1.2s,filter .6s}
+.door:hover::after{transform:scale(1.08)}
+.door::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,.7) 55%,rgba(0,0,0,.92) 100%);transition:background .6s}
+.door:hover::before{background:linear-gradient(180deg,color-mix(in srgb,var(--c) 22%,rgba(0,0,0,.25)) 0%,rgba(0,0,0,.55) 55%,rgba(0,0,0,.9) 100%)}
+.door .big{display:none}
+.prod{--img:url("assets/door-production.jpg")}
+.talent{--img:url("assets/door-talent.jpg")}
+.learn{--img:url("assets/door-learning.jpg")}
+.who{--img:url("assets/door-who.jpg")}
+/* iç sayfa kapakları */
+.cover{position:relative;margin:-170px -40px 70px;height:min(52vh,520px);display:flex;align-items:center;justify-content:center;overflow:hidden;isolation:isolate}
+.cover::after{content:"";position:absolute;inset:-40px;z-index:-2;background:var(--img) center/cover no-repeat;filter:blur(var(--blur,18px)) grayscale(1)}
+.cover::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.35),color-mix(in srgb,var(--c) 20%,rgba(0,0,0,.55)) 60%,transparent 100%)}
+.cover h1{font-weight:300;font-size:clamp(40px,7vw,104px);letter-spacing:.32em;text-transform:uppercase;text-align:center;padding:0 20px;line-height:1.1}
+.cover h1 i{display:block;font-style:normal;font-size:.22em;letter-spacing:.6em;color:var(--c);margin-top:18px;font-weight:600}
+@media (max-width:900px){.cover{margin:-170px -22px 50px}}
 .prod,section.unit.prod{--c:var(--red)}.talent,section.unit.talent{--c:var(--silver)}.learn,section.unit.learn{--c:var(--gold)}
 
 /* SECTIONS */
@@ -139,6 +156,20 @@ section.unit.talent{--glow:30%}
 section.unit .back{display:block}
 .nav ul a.on{opacity:1;color:var(--c,#fff)}
 
+/* WHO */
+section.unit.who{--c:var(--white);--glow:22%}
+.who .head{max-width:1240px;margin:0 auto 60px}
+.who .head h2{margin:20px 0 0}
+.team{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.person{border:1px solid var(--line);background:rgba(0,0,0,.5);overflow:hidden}
+.person .ph{aspect-ratio:16/10;background-size:cover;background-position:center top;filter:grayscale(1);transition:transform .8s,filter .6s}
+.person:hover .ph{transform:scale(1.04)}
+.person .tx{padding:28px 30px 32px}
+.person h3{font-size:34px;font-weight:700;letter-spacing:.04em}
+.person .role{margin-top:8px;font-size:14px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+.person .role b{font-weight:600}
+@media (max-width:900px){.team{grid-template-columns:1fr}}
+
 /* CONTACT */
 .contact{padding:150px 40px;text-align:center}
 .contact h2{font-size:clamp(40px,5vw,78px);font-weight:300;line-height:1.05}
@@ -176,6 +207,7 @@ footer img{height:30px;width:auto;opacity:.9}
     <li><a href="#production">Production</a></li>
     <li><a href="#talent">Talent</a></li>
     <li><a href="#learning">Learning</a></li>
+    <li><a href="#who">Who</a></li>
   </ul>
   <a href="#iletisim" data-scroll class="cta">İletişim</a>
 </nav>
@@ -221,6 +253,7 @@ footer img{height:30px;width:auto;opacity:.9}
 </div>
 
 <section class="unit prod view" id="production" data-view="production">
+  <div class="cover"><h1 lang="en">Production<i lang="tr">Fotoğraf · Video · Stüdyo</i></h1></div>
   <a class="back" href="#home">← Pers İstanbul</a>
   <div class="wrap">
     <div class="reveal">
@@ -240,6 +273,7 @@ footer img{height:30px;width:auto;opacity:.9}
 </section>
 
 <section class="unit talent view" id="talent" data-view="talent">
+  <div class="cover"><h1 lang="en">Talent<i lang="tr">UGC · Influencer</i></h1></div>
   <a class="back" href="#home">← Pers İstanbul</a>
   <div class="wrap">
     <div class="reveal">
@@ -258,6 +292,7 @@ footer img{height:30px;width:auto;opacity:.9}
 </section>
 
 <section class="unit learn view" id="learning" data-view="learning">
+  <div class="cover"><h1 lang="en">Learning<i lang="tr">Dijital Eğitim · Oyunlaştırma</i></h1></div>
   <a class="back" href="#home">← Pers İstanbul</a>
   <div class="wrap">
     <div class="reveal">
@@ -285,6 +320,26 @@ footer img{height:30px;width:auto;opacity:.9}
     </div>
     <div class="game-frame"><iframe src="games/penalti.html" title="Penaltı Ligi demo" loading="lazy"></iframe></div>
     <p class="demo-note">Her doğru cevap bir penaltı hakkı; puan hem oyuncuya hem mağazaya yazılır, oyuncu ve mağaza ligi birlikte tutulur. Sorular, renkler, logo ve mağaza listesi kurumunuza göre uyarlanır; SCORM paketi olarak her LMS'e yüklenir.</p>
+  </div>
+</section>
+
+<section class="unit who view" id="who" data-view="who">
+  <div class="cover"><h1 lang="en">Who<i lang="tr">Ekip</i></h1></div>
+  <a class="back" href="#home">← Pers İstanbul</a>
+  <div class="head reveal">
+    <div class="eyebrow">Who</div>
+    <span class="mark"><span class="p">PERS</span><span class="rule"></span><span class="s"><em>İSTANBUL</em></span></span>
+    <h2>Arkasındaki <strong>ekip.</strong></h2>
+  </div>
+  <div class="team">
+    <div class="person reveal">
+      <div class="ph" style="background-image:url('assets/team/sarper.jpg')"></div>
+      <div class="tx"><h3>Sarper</h3><div class="role" lang="en"><b style="color:var(--silver)">Pers Talent</b></div></div>
+    </div>
+    <div class="person reveal">
+      <div class="ph" style="background-image:url('assets/team/alper.jpg')"></div>
+      <div class="tx"><h3>Alper</h3><div class="role" lang="en"><b style="color:var(--red)">Pers Production</b> · <b style="color:var(--gold)">Pers Learning</b></div></div>
+    </div>
   </div>
 </section>
 
@@ -323,8 +378,8 @@ document.querySelectorAll('[data-unit]').forEach(el=>el.addEventListener('click'
 
 
 /* ---------- SAYFALAR (hash) ---------- */
-const VIEWS=['home','production','talent','learning'];
-const COL={production:'var(--red)',talent:'var(--silver)',learning:'var(--gold)'};
+const VIEWS=['home','production','talent','learning','who'];
+const COL={production:'var(--red)',talent:'var(--silver)',learning:'var(--gold)',who:'#fff'};
 function route(){
   let h=location.hash.slice(1);
   if(!VIEWS.includes(h)){
