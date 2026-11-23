@@ -46,7 +46,8 @@ img{display:block;max-width:100%}
 .kicker{font-size:14px;letter-spacing:.4em;text-transform:uppercase;color:var(--muted);margin-bottom:34px;opacity:0;animation:rise 1s .1s forwards}
 .hero h1{font-weight:300;font-size:clamp(52px,8.4vw,132px);line-height:.98;letter-spacing:-.01em}
 .hero h1 .w{display:block;width:max-content;opacity:0;animation:rise 1s var(--d) forwards;transition:color .3s,transform .4s}
-.hero h1 .w i{font-style:normal;display:inline-block;width:.2em;height:.2em;margin-left:.07em;border-radius:50%;background:var(--c);color:transparent;overflow:hidden;line-height:0;vertical-align:baseline;box-shadow:0 0 .35em color-mix(in srgb,var(--c) 60%,transparent)}
+.hero h1 .w i{font-style:normal;color:var(--c)}
+.hero h1 .w u{text-decoration:underline;text-decoration-color:var(--c);text-decoration-thickness:max(2px,.035em);text-underline-offset:.16em;text-decoration-skip-ink:none}
 .hero h1 .w:hover{color:var(--c);transform:translateX(14px)}
 .hero .tag{margin-top:40px;font-size:clamp(19px,1.7vw,24px);color:var(--muted);max-width:620px;opacity:0;animation:rise 1s .9s forwards}
 .hero .tag b{color:var(--white);font-weight:600}
@@ -224,9 +225,9 @@ footer img{height:30px;width:auto;opacity:.9}
 <header class="hero" id="top">
   <div class="hero-in">
     <h1 lang="en">
-      <a href="#production" class="w" style="--c:var(--red);--d:.25s">We shoot<i>.</i></a>
-      <a href="#talent" class="w" style="--c:var(--blue);--d:.45s">We influence<i>.</i></a>
-      <a href="#learning" class="w" style="--c:var(--gold);--d:.65s">We play<i>.</i></a>
+      <a href="#production" class="w" style="--c:var(--red);--d:.25s">We <u>shoot</u><i>.</i></a>
+      <a href="#talent" class="w" style="--c:var(--blue);--d:.45s">We <u>influence</u><i>.</i></a>
+      <a href="#learning" class="w" style="--c:var(--gold);--d:.65s">We <u>play</u><i>.</i></a>
     </h1>
   </div>
 </header>
