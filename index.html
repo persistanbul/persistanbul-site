@@ -316,7 +316,7 @@ footer img{height:30px;width:auto;opacity:.9}
       <div class="svc"><div class="i">A</div><h3>Kiralık Teknolog</h3><p>LMS yönetimi, raporlama ve dijital eğitim danışmanlığı.</p></div>
       <div class="svc"><div class="i">B</div><h3>Özel SCORM</h3><p>Markanızın diline ve kimliğine göre uyarlanan eğitim paketleri.</p></div>
       <div class="svc wide"><div class="i">C</div><h3>Oyunlaştırma Serisi</h3><p>Her LMS'e yüklenebilen, özelleştirilebilir eğitim oyunları.</p>
-        <div class="chips"><span class="chip">Çevir Kazan</span><span class="chip">Düello</span><span class="chip">Penaltı</span><span class="chip">Oryantasyon Yarışması</span></div></div>
+        <div class="chips"><span class="chip">Düello</span><span class="chip">Penaltı</span><span class="chip">Oryantasyon Yarışması</span></div></div>
     </div>
   </div>
 
@@ -330,8 +330,7 @@ footer img{height:30px;width:auto;opacity:.9}
     </div>
     <div class="gtabs" role="tablist">
       <button class="gtab on" data-g="0" role="tab">Penaltı Ligi</button>
-      <button class="gtab" data-g="1" role="tab">Çevir Kazan</button>
-      <button class="gtab" data-g="2" role="tab">Oryantasyon Maratonu</button>
+      <button class="gtab" data-g="1" role="tab">Oryantasyon Maratonu</button>
     </div>
     <div class="game-frame"><iframe id="gFrame" src="games/penalti.html" title="Oyun demosu" loading="lazy"></iframe></div>
     <p class="demo-note" id="gNote"></p>
@@ -410,7 +409,6 @@ document.querySelectorAll('a[data-scroll]').forEach(a=>a.addEventListener('click
 (function(){
  var G=[
   {src:'games/penalti.html',t:'Penaltı Ligi <span>— soruyu bil, şutu çek.</span>',n:'Her doğru cevap bir penaltı hakkı; puan hem oyuncuya hem mağazaya yazılır, oyuncu ve mağaza ligi birlikte tutulur.'},
-  {src:'games/cevir-kazan.html',t:'Çevir Kazan <span>— çarkı çevir, kategoriyi bil.</span>',n:'Çark kategoriyi seçer, oyuncu süreye karşı yanıtlar; hızlı cevap bonus puan getirir ve skorlar ortak tabloda sıralanır.'},
   {src:'games/oryantasyon.html',t:'Oryantasyon Maratonu <span>— izle, ilerle, bitişe koş.</span>',n:'Yeni çalışanın eğitim paketleri pist üzerindeki etaplara dönüşür; her tamamlanan paket bir sonraki etabın kilidini açar.'}];
  var tail=' Sorular, içerik, renkler ve logo kurumunuza göre uyarlanır; SCORM paketi olarak her LMS’e yüklenir.';
  function set(i){var g=G[i];document.getElementById('gFrame').src=g.src;document.getElementById('gFull').href=g.src;
