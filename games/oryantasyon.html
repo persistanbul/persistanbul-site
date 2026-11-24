@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oryantasyon Maratonu — Pers Learning demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;height:100%;background:#0B1533;overflow:hidden}
+#fit{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:1440px;height:900px;flex:none;overflow:hidden;background:#0B1533;font-family:Inter,system-ui,sans-serif;color:#fff;transform-origin:center center}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,201,60,.8)}100%{box-shadow:0 0 0 24px rgba(255,201,60,0)}}
+.pulse{animation:pulse 1.5s ease-out infinite}
+@keyframes bob{from{transform:translateY(0)}to{transform:translateY(-5px)}}
+.bob{animation:bob .32s ease-in-out infinite alternate}
+@keyframes glow{from{opacity:.55}to{opacity:1}}
+.glow{animation:glow 2.4s ease-in-out infinite alternate}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.rise{animation:rise .45s ease-out both}
+@keyframes dash{from{transform:translateX(0);opacity:1}to{transform:translateX(-14px);opacity:0}}
+.dash{animation:dash .4s linear infinite}
+.stn{transition:transform .2s ease}
+.stn:hover:not(:disabled){transform:scale(1.08)}
+.cta{transition:transform .15s ease,filter .15s ease}
+.cta:hover:not(:disabled){transform:translateY(-2px);filter:brightness(1.05)}
+button:disabled{cursor:default}
+.light{position:absolute;width:14px;height:14px;border-radius:50%;background:#FFF6D6;box-shadow:0 0 40px 18px rgba(255,236,170,.33)}
+.lane{position:absolute;border:2px solid rgba(255,255,255,.5);box-sizing:border-box}
+.leg{display:flex;align-items:center;gap:8px}.leg i{width:12px;height:12px;border-radius:50%;display:block}
+</style>
+</head>
+<body>
+<div id="fit"><div id="stage">
+  <div class="light glow" style="left:40px;top:30px"></div><div class="light glow" style="right:40px;top:30px"></div>
+  <div class="light glow" style="left:40px;bottom:30px"></div><div class="light glow" style="right:40px;bottom:30px"></div>
+
+  <div style="position:absolute;left:90px;right:90px;top:34px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:3px;color:#0B1533;background:#FFC93C;padding:4px 10px;border-radius:6px">PERS LEARNING · DEMO</span>
+        <span style="font-size:14px;font-weight:600;letter-spacing:2px;color:#B9C3E0">GELİŞİM YOLCULUĞU</span>
+      </div>
+      <h1 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:60px;line-height:1;letter-spacing:.5px;text-transform:uppercase">Oryantasyon Maratonu</h1>
+    </div>
+    <div style="display:flex;align-items:stretch;gap:14px">
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:8px;width:260px;padding:14px 18px;background:#16234A;border:1px solid #2A3A6B;border-radius:16px">
+        <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:#B9C3E0"><span>İlerleme</span><span style="color:#fff"><span id="wc">0</span> / 15 eğitim</span></div>
+        <div style="height:10px;border-radius:6px;background:#0B1533;overflow:hidden"><div id="bar" style="height:10px;width:0;background:#FFC93C;border-radius:6px;transition:width .6s ease"></div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:12px 20px;background:#FFC93C;color:#0B1533;border-radius:16px">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0B1533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg>
+        <div style="display:flex;flex-direction:column"><span style="font-size:12px;font-weight:700;letter-spacing:1.5px">PUAN</span><span id="score" style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:34px;line-height:1">0</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="position:absolute;left:90px;top:190px;width:1260px;height:620px;border-radius:310px;background:#D24B2A;box-shadow:0 30px 80px rgba(0,0,0,.45),inset 0 0 0 3px rgba(255,255,255,.7)"></div>
+  <div class="lane" style="left:112px;top:212px;width:1212px;height:572px;border-radius:288px"></div>
+  <div class="lane" style="left:134px;top:234px;width:1168px;height:528px;border-radius:266px"></div>
+  <div class="lane" style="left:156px;top:256px;width:1124px;height:484px;border-radius:244px"></div>
+  <div class="lane" style="left:178px;top:278px;width:1080px;height:440px;border-radius:222px"></div>
+  <div style="position:absolute;left:200px;top:300px;width:1040px;height:400px;border-radius:200px;overflow:hidden;background:repeating-linear-gradient(90deg,#1E8C4E 0 80px,#24995A 80px 160px);box-shadow:inset 0 0 0 3px rgba(255,255,255,.75)">
+    <div style="position:absolute;left:520px;top:0;width:2px;height:400px;background:rgba(255,255,255,.35)"></div>
+    <div style="position:absolute;left:445px;top:125px;width:150px;height:150px;border-radius:50%;border:2px solid rgba(255,255,255,.35);box-sizing:border-box"></div>
+  </div>
+  <div style="position:absolute;left:392px;top:700px;width:16px;height:110px;background-color:#fff;background-image:repeating-conic-gradient(#0B1533 0 25%,#fff 0 50%);background-size:16px 16px"></div>
+  <div style="position:absolute;left:300px;top:824px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:2px;color:#B9C3E0">START · FINISH</div>
+  <div style="position:absolute;left:352px;top:702px;display:flex;flex-direction:column;gap:6px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;color:rgba(255,255,255,.8);line-height:16px"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+
+  <div id="center" style="position:absolute;left:470px;top:372px;width:500px;display:flex;flex-direction:column;align-items:center;gap:12px"></div>
+  <div id="stations"></div>
+
+  <div id="runner" style="position:absolute;width:60px;height:60px;z-index:20;pointer-events:none">
+    <div class="bob" style="width:60px;height:60px">
+      <div id="flip" style="width:60px;height:60px;border-radius:50%;background:#0B1533;border:3px solid #FFC93C;box-sizing:border-box;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px rgba(0,0,0,.4)">
+        <svg width="42" height="28" viewBox="0 0 64 40"><path d="M6 27C6 19 10 12 16 10l10-2c4 6 10 8 18 9 8 1 14 4 14 10v3H6z" fill="#fff"/><path d="M4 30h56v3c0 2-2 3-4 3H8c-2 0-4-1-4-3z" fill="#D24B2A"/><path d="M28 13l4-3M32 15l4-3M36 16l4-3" stroke="#0B1533" stroke-width="2" stroke-linecap="round"/><path d="M14 23h26" stroke="#2557D6" stroke-width="3" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+    <div id="trail" style="position:absolute;top:18px;display:none;flex-direction:column;gap:6px">
+      <span class="dash" style="display:block;width:18px;height:3px;border-radius:2px;background:#fff"></span>
+      <span class="dash" style="display:block;width:12px;height:3px;border-radius:2px;background:#fff;margin-left:6px"></span>
+      <span class="dash" style="display:block;width:18px;height:3px;border-radius:2px;background:#fff"></span>
+    </div>
+  </div>
+
+  <div style="position:absolute;left:90px;right:90px;top:846px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:13px;font-weight:600;color:#B9C3E0">
+    <div style="display:flex;align-items:center;gap:18px"><span class="leg"><i style="background:#F26A1B"></i>BAŞLANGIÇ</span><span class="leg"><i style="background:#3B6FF0"></i>GELİŞİM</span><span class="leg"><i style="background:#8B5CF6"></i>ÜRÜN OKULU</span></div>
+    <div style="display:flex;align-items:center;gap:18px"><span class="leg"><i style="background:#FFC93C"></i>Sıradaki etap</span><span class="leg"><i style="background:#16A34A"></i>Tamamlandı</span><span class="leg"><i style="background:#CBD2E1"></i>Kilitli</span></div>
+  </div>
+
+  <div id="modal"></div>
+</div></div>
+<script>
+var PH={START:{name:'BAŞLANGIÇ',color:'#C2410C',dot:'#F26A1B'},PLUS:{name:'GELİŞİM',color:'#2557D6',dot:'#3B6FF0'},URUN:{name:'ÜRÜN OKULU',color:'#7C3AED',dot:'#8B5CF6'}};
+var PKGS=[
+ {ph:'START',title:'Şirkete Hoş Geldin',items:['Aramıza Hoş Geldin','İK Sana Nasıl Destek Oluyor?',"İşin DNA'sı"]},
+ {ph:'START',title:'Mağazayı Tanı',items:['Mağaza Turu','Kasa ve Ödeme Adımları']},
+ {ph:'PLUS',title:'Ürün Teknolojileri',items:['Malzeme Rehberi','Ürünün Anatomisi','Bakım ve İade Süreci']},
+ {ph:'PLUS',title:'Satış Becerileri',items:['Müşteriyi Karşılama','İhtiyaç Analizi']},
+ {ph:'PLUS',title:'Marka ve Hizmet',items:['Marka Hikâyemiz','Müşteri Deneyimi Standartları']},
+ {ph:'URUN',title:'Yeni Sezon',items:['Sezon Koleksiyonu','Tekstil Ürünleri','Kampanya Ürünleri']}];
+var ST=[{f:.06,side:'up'},{f:.17,side:'up'},{f:.361,side:'left'},{f:.56,side:'down'},{f:.68,side:'down'},{f:.861,side:'right'},{f:.99,side:'up',w:180}];
+var S,raf,tt;
+function init(){S={done:0,open:null,finish:false,watched:{},pos:.06,moving:false,score:0,flip:1,toast:''}}
+function $(i){return document.getElementById(i)}
+function pad(n){return(n<10?'0':'')+n}
+function pt(f,dr){var cx=720,cy=500,h=320,r=255,R=r+dr,L=2*h,C=Math.PI*r,P=2*L+2*C,s=(((f%1)+1)%1)*P;
+ if(s<L)return{x:cx-h+s,y:cy+R};s-=L;
+ if(s<C){var a=s/r;return{x:cx+h+R*Math.sin(a),y:cy+R*Math.cos(a)}}s-=C;
+ if(s<L)return{x:cx+h-s,y:cy-R};s-=L;var b=s/r;return{x:cx-h-R*Math.sin(b),y:cy-R*Math.cos(b)}}
+function wcount(){return Object.keys(S.watched).length}
+
+function renderHUD(){$('wc').textContent=wcount();$('bar').style.width=Math.round(wcount()/15*100)+'%';$('score').textContent=S.score}
+function renderRunner(){var p=pt(S.pos,30),r=$('runner');r.style.left=(p.x-30)+'px';r.style.top=(p.y-30)+'px';
+ $('flip').style.transform='scaleX('+S.flip+')';var t=$('trail');t.style.display=S.moving?'flex':'none';t.style.left=(S.flip===1?-22:64)+'px';t.style.transform='scaleX('+S.flip+')'}
+function renderCenter(){var c;
+ if(S.done<6){var pk=PKGS[S.done],ph=PH[pk.ph];
+  c={eb:'SIRADAKİ ETAP '+pad(S.done+1)+' · '+ph.name,meta:pk.items.length+' video',title:pk.title,
+   sub:S.moving?'Koşuyorsun… bir sonraki istasyona ilerliyorsun.':(S.done===0?'Koşuya hoş geldin! İlk paketini aç, videoları izle ve pistte ilerle.':'Harika gidiyorsun. Sıradaki paketi aç, videoları tamamla, bir sonraki etaba koş.'),cta:'Paketi Aç',col:ph.color}}
+ else c={eb:'TÜM ETAPLAR TAMAM',meta:'15 / 15',title:'Bitiş Çizgisi',sub:'Son düzlüğe girdin. Bitişe bas ve koşunu tamamla.',cta:'Bitişe Koş',col:'#16A34A'};
+ $('center').innerHTML=(S.toast?'<div class="rise" style="padding:8px 16px;background:#FFC93C;color:#0B1533;border-radius:999px;font-weight:700;font-size:15px">'+S.toast+'</div>':'')+
+ '<div style="width:100%;box-sizing:border-box;padding:24px 28px;background:#fff;color:#0B1533;border-radius:22px;box-shadow:0 20px 50px rgba(0,0,0,.3);display:flex;flex-direction:column;gap:14px">'+
+ '<div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:13px;font-weight:700;letter-spacing:1.5px;color:'+c.col+'">'+c.eb+'</span><span style="font-size:13px;font-weight:600;color:#4B5675">'+c.meta+'</span></div>'+
+ '<div style="font-family:\'Barlow Condensed\',sans-serif;font-weight:800;font-size:40px;line-height:1;text-transform:uppercase">'+c.title+'</div>'+
+ '<div style="font-size:15px;line-height:1.45;color:#4B5675">'+c.sub+'</div>'+
+ '<button class="cta" id="mainCta" '+(S.moving?'disabled':'')+' style="align-self:flex-start;display:flex;align-items:center;gap:10px;height:52px;padding:0 24px;border:0;border-radius:14px;background:#0B1533;color:#fff;font-family:Inter,sans-serif;font-size:16px;font-weight:700;cursor:pointer">'+
+ '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFC93C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8v8a2 2 0 0 1-1 1.7l-7 4a2 2 0 0 1-2 0l-7-4A2 2 0 0 1 3 16V8a2 2 0 0 1 1-1.7l7-4a2 2 0 0 1 2 0l7 4A2 2 0 0 1 21 8z"/><path d="M3.3 7 12 12l8.7-5M12 22V12"/></svg><span>'+c.cta+'</span></button></div>';
+ $('mainCta').onclick=function(){openStation(S.done)}}
+function renderStations(){var h='';
+ ST.forEach(function(s,i){var p=pt(s.f,-18),fin=i===6,pk=PKGS[i],ph=pk?PH[pk.ph]:null,done=i<S.done,act=i===S.done&&!S.moving,locked=i>S.done,w=s.w||220;
+  var lx=p.x-w/2,ly=p.y-34-64;if(s.side==='down')ly=p.y+34+12;if(s.side==='left'){lx=p.x-34-14-w;ly=p.y-28}if(s.side==='right'){lx=p.x+34+14;ly=p.y-28}
+  h+='<div style="position:absolute;left:'+lx+'px;top:'+ly+'px;width:'+w+'px;box-sizing:border-box;padding:8px 12px;background:#fff;border-radius:14px;box-shadow:0 8px 20px rgba(0,0,0,.22);opacity:'+(locked?.72:1)+';display:flex;flex-direction:column;gap:2px;pointer-events:none">'+
+   '<span style="font-size:11px;font-weight:700;letter-spacing:1.2px;color:'+(fin?'#0B1533':ph.color)+'">'+(fin?'FINISH · SERTİFİKA':'ETAP '+pad(i+1)+' · '+ph.name)+'</span>'+
+   '<span style="font-size:15px;font-weight:700;color:#0B1533;line-height:1.2">'+(fin?'Bitiş':pk.title)+'</span></div>';
+  var inner=done?'<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'
+   :fin?'<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4M5 4h12l-2 4 2 4H5"/></svg>':'<span>'+pad(i+1)+'</span>';
+  if(locked)inner+='<span style="position:absolute;right:-6px;bottom:-6px;width:26px;height:26px;border-radius:50%;background:#0B1533;border:2px solid #fff;display:flex;align-items:center;justify-content:center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>';
+  h+='<button class="stn '+(act?'pulse':'')+'" data-i="'+i+'" '+(locked?'disabled':'')+' aria-label="'+(fin?'Bitiş':'Etap '+(i+1)+': '+pk.title)+'" style="position:absolute;left:'+(p.x-34)+'px;top:'+(p.y-34)+'px;width:68px;height:68px;border-radius:50%;border:4px solid #fff;background:'+(done?'#16A34A':i===S.done?'#FFC93C':'#CBD2E1')+';color:'+(i===S.done?'#0B1533':'#4B5675')+';display:flex;align-items:center;justify-content:center;padding:0;cursor:'+(locked?'not-allowed':'pointer')+';box-shadow:0 6px 16px rgba(0,0,0,.35);font-family:\'Barlow Condensed\',sans-serif;font-weight:800;font-size:28px">'+inner+'</button>'});
+ $('stations').innerHTML=h;
+ document.querySelectorAll('.stn').forEach(function(b){b.onclick=function(){openStation(+b.dataset.i)}})}
+function renderModal(){var m=$('modal');
+ if(S.finish){m.innerHTML='<div style="position:absolute;inset:0;z-index:50;background:rgba(6,12,32,.78);display:flex;align-items:center;justify-content:center"><div class="rise" role="dialog" style="width:520px;padding:36px;box-sizing:border-box;background:#fff;color:#0B1533;border-radius:26px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center">'+
+  '<div style="width:96px;height:96px;border-radius:50%;background:#FFC93C;display:flex;align-items:center;justify-content:center"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#0B1533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 14.5 7 22l5-3 5 3-2-7.5"/></svg></div>'+
+  '<span style="font-family:\'Barlow Condensed\',sans-serif;font-weight:800;font-size:46px;line-height:1;text-transform:uppercase">Bitiş çizgisi!</span>'+
+  '<span style="font-size:16px;line-height:1.5;color:#4B5675">Oryantasyon maratonunu tamamladın. Toplam puanın <b style="color:#0B1533">'+S.score+'</b>.</span>'+
+  '<span style="font-size:13px;color:#6B7591">Bu bir Pers Learning demosudur. Etaplar, videolar ve görünüm kurumunuza göre uyarlanır; SCORM olarak her LMS’e yüklenir.</span>'+
+  '<button class="cta" id="restart" style="height:52px;padding:0 26px;border-radius:14px;border:0;background:#0B1533;color:#fff;font-family:Inter,sans-serif;font-size:15px;font-weight:700;cursor:pointer">Yeniden başla</button></div></div>';
+  $('restart').onclick=restart;return}
+ if(S.open===null){m.innerHTML='';return}
+ var i=S.open,pk=PKGS[i],ph=PH[pk.ph],wc=0;
+ var items=pk.items.map(function(t,j){var w=!!S.watched[i+'-'+j];if(w)wc++;
+  return '<div style="display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:16px;background:#F3F5FA">'+
+  '<span style="width:44px;height:44px;border-radius:12px;background:'+ph.dot+';color:#fff;flex:none;display:flex;align-items:center;justify-content:center;font-family:\'Barlow Condensed\',sans-serif;font-weight:800;font-size:20px">'+pad(j+1)+'</span>'+
+  '<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:15px;font-weight:700">'+t+'</span><span style="font-size:13px;color:#4B5675">Video · Etkinlik</span></div>'+
+  '<button class="watch" data-j="'+j+'" style="flex:none;height:44px;min-width:112px;padding:0 16px;border-radius:12px;border:0;background:'+(w?'#DCFCE7':'#0B1533')+';color:'+(w?'#166534':'#fff')+';font-family:Inter,sans-serif;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer">'+
+  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="'+(w?'M5 12.5l4.5 4.5L19 7.5':'M7 4.5v15l12-7.5z')+'"/></svg><span>'+(w?'İzlendi':'İzle')+'</span></button></div>'}).join('');
+ var ready=wc===pk.items.length,review=i<S.done;
+ m.innerHTML='<div style="position:absolute;inset:0;z-index:50;background:rgba(6,12,32,.74);display:flex;align-items:center;justify-content:center"><div class="rise" role="dialog" style="width:600px;background:#fff;color:#0B1533;border-radius:26px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)">'+
+ '<div style="position:relative;padding:26px 30px 22px;background:'+ph.color+';color:#fff;display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:700;letter-spacing:1.5px">ETAP '+pad(i+1)+' · '+ph.name+'</span>'+
+ '<span style="font-family:\'Barlow Condensed\',sans-serif;font-weight:800;font-size:42px;line-height:1;text-transform:uppercase">'+pk.title+'</span>'+
+ '<span style="font-size:14px;font-weight:500">'+pk.items.length+' video · her video +10 puan · paket bonusu +20</span>'+
+ '<button id="close" aria-label="Kapat" style="position:absolute;right:18px;top:18px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'+
+ '<div style="padding:18px 22px;display:flex;flex-direction:column;gap:10px">'+items+'</div>'+
+ '<div style="padding:6px 22px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px"><span style="font-size:14px;font-weight:600;color:#4B5675">'+wc+' / '+pk.items.length+' izlendi</span>'+
+ '<button class="cta" id="complete" '+(ready?'':'disabled')+' style="height:52px;padding:0 22px;border-radius:14px;border:0;background:'+(ready?'#FFC93C':'#E5E8F0')+';color:'+(ready?'#0B1533':'#6B7591')+';font-family:Inter,sans-serif;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:10px"><span>'+(review?'Kapat':ready?'Paketi kapat ve koş':'Önce videoları izle')+'</span>'+
+ '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div></div></div>';
+ $('close').onclick=function(){S.open=null;renderModal()};
+ $('complete').onclick=completePkg;
+ document.querySelectorAll('.watch').forEach(function(b){b.onclick=function(){watch(i,+b.dataset.j)}})}
+function renderAll(){renderHUD();renderRunner();renderCenter();renderStations();renderModal()}
+
+function openStation(i){if(S.moving||i>S.done)return;if(i===6){S.finish=true;renderModal();return}S.open=i;renderModal()}
+function watch(i,j){var k=i+'-'+j;if(S.watched[k])return;S.watched[k]=true;S.score+=10;renderHUD();renderModal()}
+function completePkg(){var i=S.open;if(i===null)return;if(i<S.done){S.open=null;renderModal();return}
+ var next=i+1;S.toast=next===6?'+20 bonus · Bitiş çizgisine koş!':'+20 bonus · Etap '+pad(next+1)+' açıldı!';
+ S.open=null;S.done=next;S.score+=20;S.moving=true;renderAll();
+ clearTimeout(tt);tt=setTimeout(function(){S.toast='';renderCenter()},2800);
+ run(ST[i].f,ST[next].f)}
+function run(from,to){var t0=performance.now(),dur=1900;cancelAnimationFrame(raf);
+ (function step(now){var k=Math.min(1,(now-t0)/dur),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2,pos=from+(to-from)*e;
+  var a=pt(S.pos,30),b=pt(pos,30);if(b.x<a.x-.05)S.flip=-1;else if(b.x>a.x+.05)S.flip=1;S.pos=pos;renderRunner();
+  if(k<1)raf=requestAnimationFrame(step);else{S.moving=false;S.flip=1;renderAll()}})(t0)}
+function restart(){cancelAnimationFrame(raf);init();renderAll()}
+
+function fit(){var s=Math.min(innerWidth/1440,innerHeight/900);$('stage').style.transform='scale('+s+')'}
+addEventListener('resize',fit);fit();init();renderAll();
+</script>
+</body>
+</html>
