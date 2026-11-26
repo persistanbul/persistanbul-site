@@ -348,7 +348,8 @@ footer img{height:30px;width:auto;opacity:.9}
     </div>
     <div class="gtabs" role="tablist">
       <button class="gtab on" data-g="0" role="tab">Penaltı Ligi</button>
-      <button class="gtab" data-g="1" role="tab">Oryantasyon Maratonu</button>
+      <button class="gtab" data-g="1" role="tab">Düello</button>
+      <button class="gtab" data-g="2" role="tab">Oryantasyon Maratonu</button>
     </div>
     <div class="game-frame"><iframe id="gFrame" src="games/penalti.html" title="Oyun demosu" loading="lazy"></iframe></div>
     <p class="demo-note" id="gNote"></p>
@@ -427,6 +428,7 @@ document.querySelectorAll('a[data-scroll]').forEach(a=>a.addEventListener('click
 (function(){
  var G=[
   {src:'games/penalti.html',t:'Penaltı Ligi <span>— soruyu bil, şutu çek.</span>',n:'Her doğru cevap bir penaltı hakkı; puan hem oyuncuya hem mağazaya yazılır, oyuncu ve mağaza ligi birlikte tutulur.'},
+  {src:'games/duello.html',t:'Düello <span>— rakibini bul, hızlı ve doğru cevapla.</span>',n:'İki çalışan canlı eşleşir, aynı 3 soruyu yanıtlar; doğru ve hızlı cevap kazandırır, galibiyetler liderlik tablosunda toplanır.'},
   {src:'games/oryantasyon.html',t:'Oryantasyon Maratonu <span>— izle, ilerle, bitişe koş.</span>',n:'Yeni çalışanın eğitim paketleri pist üzerindeki etaplara dönüşür; her tamamlanan paket bir sonraki etabın kilidini açar.'}];
  var tail=' Sorular, içerik, renkler ve logo kurumunuza göre uyarlanır; SCORM paketi olarak her LMS’e yüklenir.';
  function set(i){var g=G[i];document.getElementById('gFrame').src=g.src;document.getElementById('gFull').href=g.src;

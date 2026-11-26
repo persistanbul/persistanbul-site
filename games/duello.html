@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Düello — Pers Learning demo</title>
+<style>:root{--bg:#0d1830;--card:#14233f;--ink:#e8eefb;--mute:#9db0d0;--line:#2a3b5c;--blue:#7db0ff;--btn:#7db0ff;--btn-ink:#06142e;--orange:#f28a1e;--ok:#6fd99a;--okbg:#12301f;--bad:#ff9a90;--badbg:#3a1a1a;--bar:#22324f;color-scheme:dark}
+*, *:before, *:after {
+        box-sizing: border-box
+    }
+
+    body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Poppins", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5
+    }
+
+    button {
+        font: inherit;
+        color: inherit;
+        cursor: pointer
+    }
+
+    :focus-visible {
+        outline: 3px solid var(--orange);
+        outline-offset: 2px
+    }
+
+    h1, h2, h3 {
+        margin: 0;
+        letter-spacing: -.02em;
+        line-height: 1.2
+    }
+
+    h2 {
+        font-size: 1.4rem
+    }
+
+    h2:focus {
+        outline: none
+    }
+
+    p {
+        margin: 10px 0 0
+    }
+
+    .mute {
+        color: var(--mute)
+    }
+
+    .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 18px 40px
+    }
+
+    .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 10px;
+        padding: 20px 0 6px;
+        flex-wrap: wrap
+    }
+
+    .logo {
+        font-size: 1.8rem;
+        font-weight: 800;
+        letter-spacing: -.03em;
+        line-height: 1
+    }
+
+    .logo b {
+        color:var(--blue)
+    }
+
+    .logo i {
+        color: var(--orange)
+    }
+
+    .top span {
+        color: var(--mute);
+        font-weight: 600
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
+        gap: 20px;
+        align-items: start;
+        margin-top: 14px
+    }
+
+    .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 22px
+    }
+
+    .btn {
+        border: 0;
+        border-radius: 12px;
+        padding: 13px 26px;
+        font-weight: 700;
+        background: var(--btn);
+        color: var(--btn-ink)
+    }
+
+    .btn.ghost {
+        background: none;
+        color: var(--blue);
+        border: 2px solid var(--blue);
+        padding: 11px 24px
+    }
+
+    .btn[disabled] {
+        opacity: .45;
+        cursor: default
+    }
+
+    .center {
+        text-align: center
+    }
+
+    .cta {
+        margin-top: 20px
+    }
+
+    .hero {
+        font-size: 4rem;
+        line-height: 1;
+        margin: 6px 0
+    }
+
+    .glass {
+        display: inline-block;
+        font-size: 4.2rem;
+        animation: flip 2s ease-in-out infinite
+    }
+
+    @keyframes flip {
+        0%, 40% {
+            transform:rotate(0)
+        }
+
+        60%, 100% {
+            transform: rotate(180deg)
+        }
+    }
+
+    .vs {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 12px;
+        align-items: center;
+        margin: 18px 0
+    }
+
+    .vs div {
+        padding: 14px;
+        border-radius: 14px;
+        background: var(--bar);
+        font-weight: 700;
+        text-align: center;
+        overflow-wrap: anywhere
+    }
+
+    .vs b {
+        color: var(--orange);
+        font-size: 1.6rem
+    }
+
+    .big {
+        font-size: 3.4rem;
+        font-weight: 800;
+        line-height: 1;
+        color: var(--blue)
+    }
+
+    .meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 12px
+    }
+
+    .chip {
+        display: inline-block;
+        padding: 4px 14px;
+        border-radius: 99px;
+        font-weight: 700;
+        font-size: .92rem;
+        color: #fff
+    }
+
+    .tm {
+        height: 12px;
+        border-radius: 99px;
+        background: var(--bar);
+        overflow: hidden;
+        margin: 6px 0 4px
+    }
+
+    .tb {
+        height: 100%;
+        background: var(--ok);
+        width: 100%
+    }
+
+    .tb.low {
+        background: var(--bad)
+    }
+
+    .opts {
+        display: grid;
+        gap: 10px;
+        margin-top: 16px
+    }
+
+    .opt {
+        text-align: left;
+        background: var(--card);
+        border: 2px solid var(--line);
+        border-radius: 12px;
+        padding: 13px 16px;
+        display: flex;
+        gap: 10px
+    }
+
+    .opt:hover:not([disabled]) {
+        border-color: var(--blue)
+    }
+
+    .opt[disabled] {
+        cursor: default
+    }
+
+    .opt.right {
+        border-color: var(--ok);
+        background: var(--okbg)
+    }
+
+    .opt.wrong {
+        border-color: var(--bad);
+        background: var(--badbg)
+    }
+
+    .opt.mine {
+        border-color: var(--blue);
+        background: var(--bar)
+    }
+
+    .opt em {
+        font-style: normal;
+        font-weight: 700;
+        margin-left: auto;
+        white-space: nowrap
+    }
+
+    .fb {
+        margin-top: 16px;
+        padding: 14px 16px;
+        border-radius: 12px;
+        background: var(--bar)
+    }
+
+    .rows {
+        list-style: none;
+        margin: 14px 0 0;
+        padding: 0;
+        display: grid;
+        gap: 8px;
+        text-align: left
+    }
+
+    .rows li {
+        padding: 10px 12px;
+        border-radius: 10px;
+        background: var(--bar);
+        font-size: .93rem
+    }
+
+    .rows .l2 {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 4px;
+        font-weight: 700
+    }
+
+    .ok {
+        color:var(--ok)
+    }
+
+    .no {
+        color: var(--bad)
+    }
+
+    .lb {
+        list-style: none;
+        margin: 12px 0 0;
+        padding: 0;
+        display: grid;
+        gap: 6px
+    }
+
+    .lb li {
+        display: grid;
+        grid-template-columns: 28px 1fr auto;
+        gap: 8px;
+        align-items: center;
+        padding: 8px 10px;
+        border-radius: 10px;
+        background: var(--bar)
+    }
+
+    .lb li.me {
+        outline: 2px solid var(--orange);
+        background: var(--card)
+    }
+
+    .lb .rk {
+        font-weight: 800;
+        color: var(--mute)
+    }
+
+    .lb .sc {
+        font-weight: 800
+    }
+
+    .lb small {
+        display: block;
+        color: var(--mute)
+    }
+
+    .tag {
+        font-size: .75rem;
+        font-weight: 700;
+        padding: 1px 8px;
+        border-radius: 99px;
+        background: var(--orange);
+        color: #10264a;
+        margin-left: 6px
+    }
+
+    .rec {
+        list-style: none;
+        margin: 10px 0 0;
+        padding: 0;
+        display: grid;
+        gap: 6px;
+        font-size: .9rem
+    }
+
+    .rec li {
+        padding: 7px 10px;
+        border-radius: 10px;
+        background: var(--bar)
+    }
+
+    h3 {
+        font-size: 1.05rem;
+        margin-top: 22px
+    }
+
+    @media (max-width: 860px) {
+        .grid {
+            grid-template-columns: 1fr
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .glass {
+            animation: none
+        }
+    }
+    </style>
+</head>
+<body>
+<div class="wrap">
+ <div class="top"><div class="logo" aria-label="Pers Learning"><b>pers</b> <i style="font-style:normal">learning</i></div><span>Düello · Demo</span></div>
+ <div class="grid"><main class="card" id="stage"></main><aside class="card" id="lb" aria-label="Liderlik tablosu"></aside></div>
+ <p id="live" role="status" style="position:absolute;left:-9999px"></p>
+</div>
+<script>
+var LIMIT = 15;
+var CATS = [{
+        n: "Satış",
+        c: "#c8183c"
+    }, {
+        n: "Ürün Bilgisi",
+        c: "#0a5cc5"
+    }, {
+        n: "Müşteri Deneyimi",
+        c: "#b85f00"
+    }, {
+        n: "Perakende Matematiği",
+        c: "#0b7a75"
+    }];
+    
+    var QS = [
+    {
+        c: 0,
+        q: "Müşterinin gerçek ihtiyacını anlamak için en etkili soru türü hangisidir?",
+        o: ["Evet veya hayır cevabı gerektiren sorular", "Açık uçlu sorular", "Yalnızca fiyatı soran sorular", "Soru sormadan ürün göstermek"],
+        a: 1,
+        e: "Açık uçlu sorular müşteriyi konuşturur ve ihtiyacı ortaya çıkarır."
+    },
+    {
+        c: 0,
+        q: "Çapraz satış (cross-sell) nedir?",
+        o: ["Ürünü indirimli satmak", "Aynı ürünün daha pahalı modelini önermek", "Aldığı ürünle birlikte kullanılacak tamamlayıcı ürün önermek", "Müşteriyi başka mağazaya yönlendirmek"],
+        a: 2,
+        e: "Çapraz satışta ana ürüne uyan tamamlayıcı ürün önerilir."
+    },
+    {
+        c: 1,
+        q: "Ayak ölçüsü almak için günün hangi saati daha doğru sonuç verir?",
+        o: ["Sabah, uyanır uyanmaz", "Akşam saatleri", "Fark etmez", "Gece yarısı"],
+        a: 1,
+        e: "Ayaklar gün içinde şişer. Akşam ölçmek gün boyu rahatlık sağlar."
+    },
+    {
+        c: 1,
+        q: "Müşteri ayakkabıyı denerken hangisi doğru yaklaşımdır?",
+        o: ["Sadece tek ayağa giydirip bırakmak", "Ayakkabıyı giymeden gözle bakmak", "Her zaman bir numara küçük önermek", "İki ayağa da giydirip birkaç adım yürümesini istemek"],
+        a: 3,
+        e: "İki ayağın ölçüsü farklı olabilir. Yürümek gerçek rahatlığı gösterir."
+    },
+    {
+        c: 2,
+        q: "Şikâyeti olan müşteriye ilk yaklaşım ne olmalı?",
+        o: ["Hemen savunma yapmak", "Sözünü kesip çözüm sunmak", "Sakin kalıp önce dinlemek ve anladığını göstermek", "Sorunu başka çalışana devretmek"],
+        a: 2,
+        e: "Önce dinlemek, çözüm konuşmasının zeminini hazırlar."
+    },
+    {
+        c: 2,
+        q: "Müşteri aradığı numarayı bulamadığında en iyi yaklaşım hangisidir?",
+        o: ["Alternatif model önermek ve mümkünse başka mağazada stok kontrolü yapmak", "“Elimizde yok” deyip bırakmak", "Daha sonra tekrar gelmesini söylemek", "Başka bir markaya yönlendirmek"],
+        a: 0,
+        e: "Çözüm odaklı yaklaşım satışı ve memnuniyeti birlikte korur."
+    },
+    {
+        c: 3,
+        q: "Mağazaya 200 kişi girdi, 50 kişi alışveriş yaptı. Dönüşüm oranı yüzde kaçtır?",
+        o: ["%20", "%25", "%40", "%50"],
+        a: 1,
+        e: "50 / 200 = %25."
+    },
+    {
+        c: 3,
+        q: "40 fişte toplam 120 ürün satıldı. UPT (fiş başına ürün adedi) kaçtır?",
+        o: ["2", "3", "4", "30"],
+        a: 1,
+        e: "120 / 40 = 3."
+    },
+    {
+        c: 0,
+        q: "Müşteri “düşüneyim” dediğinde en iyi yaklaşım hangisidir?",
+        o: ["Hemen indirim yapmak", "Neyi düşündüğünü nazikçe sorup tereddüdünü gidermek", "Baskı yapıp hemen satmak", "Konuşmayı bitirmek"],
+        a: 1,
+        e: "Tereddüdün nedenini öğrenmek, doğru cevabı vermenizi sağlar."
+    },
+    {
+        c: 1,
+        q: "Ayakkabı denenirken en uzun parmağın ucunda yaklaşık ne kadar boşluk olmalıdır?",
+        o: ["Yaklaşık 1 cm (bir başparmak genişliği)", "Hiç boşluk olmamalı", "5 cm", "Fark etmez"],
+        a: 0,
+        e: "Yürürken ayak öne kayar, bu boşluk parmakları korur."
+    },
+    {
+        c: 2,
+        q: "Müşteri deneyiminde ilk izlenimi en çok ne belirler?",
+        o: ["Fiyat etiketi", "Kasa hızı", "Sıcak ve güler yüzlü karşılama", "Vitrin ışığı"],
+        a: 2,
+        e: "İlk izlenim, karşılama ile başlar."
+    },
+    {
+        c: 3,
+        q: "800 TL’lik bir ürün %25 indirimle kaç TL olur?",
+        o: ["500 TL", "600 TL", "650 TL", "700 TL"],
+        a: 1,
+        e: "800 x 0,25 = 200 TL indirim, 800 - 200 = 600 TL."
+    }];
+
+    
+var $=function(i){return document.getElementById(i)};
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function fmt(s){s=Math.round(s);return s>=60?Math.floor(s/60)+" dk "+(s%60)+" sn":s+" sn"}
+function rnd(a,b){return a+Math.random()*(b-a)}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+
+var NAME="Sen";
+var RIVALS=["Deniz K.","Ece T.","Mert A.","Selin Y.","Can B.","Zeynep Ö.","Emre D.","Buse A.","Kaan Ş.","İrem G."];
+var BOARD={top:[
+ {name:"Deniz K.",wins:14,fo:"Can B.",fd:41},{name:"Ece T.",wins:11,fo:"Emre D.",fd:38},{name:"Mert A.",wins:9,fo:"Selin Y.",fd:47},
+ {name:"Zeynep Ö.",wins:7,fo:"Kaan Ş.",fd:52},{name:"Selin Y.",wins:5,fo:"Buse A.",fd:49}],
+ recent:[{w:"Ece T.",l:"Kaan Ş.",sw:420,sl:310,dur:44},{w:"Deniz K.",l:"Buse A.",sw:480,sl:190,dur:39},{w:"Mert A.",l:"Emre D.",sw:350,sl:340,dur:51}]};
+var ME={wins:0,fast:null};
+try{var sv=JSON.parse(localStorage.getItem("pers_duello")||"null");if(sv)ME=sv}catch(e){}
+function saveMe(){try{localStorage.setItem("pers_duello",JSON.stringify(ME))}catch(e){}}
+
+var M=null,tick=null,waitT=null;
+function set(html){$("stage").innerHTML=html}
+
+function idle(note){clearInterval(tick);clearTimeout(waitT);M=null;
+ set('<div class="center"><div class="hero" aria-hidden="true">⚔️</div><h2 id="hd">Düello</h2>'+
+ '<p class="mute">Rakip bul’a bas, bir rakiple eşleş. İkiniz de aynı 3 soruyu yanıtlarsınız. Doğru ve hızlı cevap kazandırır.</p>'+
+ (note?'<p class="no">'+esc(note)+'</p>':'')+
+ '<div class="cta"><button class="btn" id="find">Rakip bul</button></div>'+
+ '<p class="mute" style="font-size:.85rem;margin-top:22px">Bu bir Pers Learning demosudur. Gerçek kurulumda çalışanlar birbiriyle canlı eşleşir; sorular, süre ve puanlama kurumunuza göre uyarlanır, SCORM olarak her LMS’e yüklenir.</p></div>');
+ $("find").onclick=find}
+
+function find(){
+ set('<div class="center"><div class="glass" aria-hidden="true">⏳</div><h2 id="hd" style="margin-top:8px">Rakip aranıyor</h2><p class="mute">Seninle aynı anda oynamak isteyen biri bulunuyor…</p><div class="cta"><button class="btn ghost" id="cancel">Vazgeç</button></div></div>');
+ $("cancel").onclick=function(){idle()};
+ waitT=setTimeout(start,rnd(1500,3200))}
+
+function start(){
+ var opp=RIVALS[Math.floor(Math.random()*RIVALS.length)];
+ var pick=shuffle(QS.map(function(_,i){return i})).slice(0,3);
+ M={opp:opp,k:0,t0:Date.now(),rounds:pick.map(function(qi){
+   var q=QS[qi],order=shuffle(q.o.map(function(_,i){return i}));
+   var skill=Math.random()<.68,bc=skill?q.a:shuffle([0,1,2,3].filter(function(x){return x!==q.a}))[0];
+   return {qi:qi,order:order,me:null,op:{c:bc,ms:Math.round(rnd(3000,12500))}}})};
+ $("live").textContent="Rakip bulundu: "+opp;
+ var n=3;
+ set('<div class="center"><div class="hero" aria-hidden="true">⚔️</div><h2 id="hd">'+esc(opp)+' sana meydan okuyor!</h2>'+
+ '<div class="vs"><div>'+esc(NAME)+'</div><b>VS</b><div>'+esc(opp)+'</div></div><p class="mute">Düello <b id="cdn">'+n+'</b> saniye sonra başlıyor. Hazır ol.</p></div>');
+ clearInterval(tick);tick=setInterval(function(){n--;if($("cdn"))$("cdn").textContent=Math.max(0,n);if(n<=0){clearInterval(tick);ask()}},1000)}
+
+function pts(ok,ms){return ok?100+Math.round(100*Math.max(0,LIMIT*1000-ms)/(LIMIT*1000)):0}
+
+function ask(){
+ var k=M.k,r=M.rounds[k],q=QS[r.qi],c=CATS[q.c];r.open=Date.now();
+ set('<div class="meta"><span class="chip" style="background:'+c.c+'">'+c.n+'</span><span class="mute">Soru '+(k+1)+' / 3 · Rakip: '+esc(M.opp)+'</span></div>'+
+ '<div class="tm"><div class="tb" id="tb"></div></div><div class="mute" style="font-size:.9rem">Kalan süre: <b id="tn">'+LIMIT+'</b> sn · <span id="ost">'+esc(M.opp)+' düşünüyor…</span></div>'+
+ '<h2 id="hd" style="margin-top:14px">'+q.q+'</h2><div class="opts">'+
+ r.order.map(function(oi){return '<button class="opt" data-i="'+oi+'"><span>'+q.o[oi]+'</span></button>'}).join("")+'</div><p class="mute" id="wt"></p>');
+ document.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){answer(+b.dataset.i,b)}});
+ clearInterval(tick);tick=setInterval(function(){
+  var el=Date.now()-r.open,rem=Math.max(0,LIMIT-el/1000);
+  if($("tb")){$("tb").style.width=rem/LIMIT*100+"%";$("tb").classList.toggle("low",rem<5);$("tn").textContent=Math.ceil(rem)}
+  if(el>=r.op.ms&&$("ost"))$("ost").textContent=M.opp+" cevapladı!";
+  if(!r.me&&rem<=0)answer(-1,null);
+  if(r.me&&el>=r.op.ms){clearInterval(tick);setTimeout(function(){reveal(k)},500)}},100)}
+
+function answer(i,b){var r=M.rounds[M.k];if(r.me)return;
+ var ms=i<0?LIMIT*1000:Date.now()-r.open;r.me={c:i,ms:ms};
+ document.querySelectorAll(".opt").forEach(function(x){x.disabled=true});if(b)b.classList.add("mine");
+ if(Date.now()-r.open<r.op.ms)$("wt").textContent="Cevabın alındı. Rakibin yanıtlaması bekleniyor…"}
+
+function line(who,x,q){var t=x.c<0?"Cevap vermedi":q.o[x.c],ok=x.c===q.a;
+ return '<li><span class="mute">'+who+'</span><div>'+esc(t)+'</div><div class="l2"><span class="'+(ok?"ok":"no")+'">'+(ok?"Doğru":"Yanlış")+'</span><span>+'+x.pts+' puan</span></div></li>'}
+
+function reveal(k){var r=M.rounds[k],q=QS[r.qi];
+ r.me.pts=pts(r.me.c===q.a,r.me.ms);r.op.pts=pts(r.op.c===q.a,r.op.ms);
+ var last=k===2,n=4;
+ set('<h2 id="hd">Soru '+(k+1)+' sonucu</h2><p>Doğru cevap: <b class="ok">'+q.o[q.a]+'</b></p><p class="mute">'+q.e+'</p>'+
+ '<ul class="rows">'+line("Sen",r.me,q)+line(esc(M.opp),r.op,q)+'</ul><p class="mute center">'+(last?"Sonuç":"Sonraki soru")+' <b id="nx">'+n+'</b> sn sonra.</p>');
+ clearInterval(tick);tick=setInterval(function(){n--;if($("nx"))$("nx").textContent=Math.max(0,n);
+  if(n<=0){clearInterval(tick);if(last)result();else{M.k++;ask()}}},1000)}
+
+function result(){
+ var tm=0,to=0;M.rounds.forEach(function(r){tm+=r.me.pts;to+=r.op.pts});
+ var dur=(Date.now()-M.t0)/1000,win=tm>to,draw=tm===to;
+ if(win){ME.wins++;if(!ME.fast||dur<ME.fast.dur)ME.fast={opp:M.opp,dur:Math.round(dur)};saveMe()}
+ BOARD.recent.unshift(draw?{draw:1,w:NAME,l:M.opp,sw:tm,sl:to,dur:dur}:win?{w:NAME,l:M.opp,sw:tm,sl:to,dur:dur}:{w:M.opp,l:NAME,sw:to,sl:tm,dur:dur});
+ BOARD.recent=BOARD.recent.slice(0,5);
+ var rows=M.rounds.map(function(r,k){var q=QS[r.qi];
+  return '<li>'+(k+1)+'. '+q.q+'<div class="l2"><span class="'+(r.me.c===q.a?"ok":"no")+'">Sen: '+(r.me.c===q.a?"Doğru":"Yanlış")+' (+'+r.me.pts+')</span><span class="'+(r.op.c===q.a?"ok":"no")+'">'+esc(M.opp)+': '+(r.op.c===q.a?"Doğru":"Yanlış")+' (+'+r.op.pts+')</span></div></li>'}).join("");
+ set('<div class="center"><div class="hero" aria-hidden="true">'+(draw?"🤝":win?"🏆":"💪")+'</div><h2 id="hd">'+(draw?"Berabere":win?esc(M.opp)+" karşısında kazandın!":esc(M.opp)+" kazandı")+'</h2>'+
+ '<div class="vs"><div>'+esc(NAME)+'<br><span class="big" style="font-size:2rem">'+tm+'</span></div><b>–</b><div>'+esc(M.opp)+'<br><span class="big" style="font-size:2rem">'+to+'</span></div></div>'+
+ '<p class="mute">Düello süresi: '+fmt(dur)+'</p></div><ul class="rows">'+rows+'</ul>'+
+ '<div class="center cta"><button class="btn" id="again">Yeni düello</button></div>');
+ $("again").onclick=function(){idle()};renderLB()}
+
+function renderLB(){
+ var top=BOARD.top.map(function(p){return {name:p.name,wins:p.wins,fast:{opp:p.fo,dur:p.fd}}});
+ if(ME.wins)top.push({name:NAME,wins:ME.wins,fast:ME.fast,me:1});
+ top.sort(function(a,b){return b.wins-a.wins});
+ var h='<h2>Liderlik tablosu</h2><ol class="lb">'+top.map(function(p,i){return '<li'+(p.me?' class="me"':'')+'><span class="rk">'+(i+1)+'</span><span>'+esc(p.name)+(p.me?'<span class="tag">Siz</span>':'')+
+  '<small>En hızlı: '+esc(p.fast.opp)+' karşısında '+fmt(p.fast.dur)+'</small></span><span class="sc">'+p.wins+' G</span></li>'}).join("")+'</ol>';
+ h+='<h3>Son düellolar</h3><ul class="rec">'+BOARD.recent.map(function(r){return '<li>'+(r.draw?'<b>Sen</b> ve '+esc(r.l)+' berabere kaldınız':r.w===NAME?'<b>Sen</b>, '+esc(r.l)+' oyuncusunu '+fmt(r.dur)+' içinde yendin':r.l===NAME?'<b>'+esc(r.w)+'</b>, seni '+fmt(r.dur)+' içinde yendi':'<b>'+esc(r.w)+'</b>, '+esc(r.l)+' oyuncusunu '+fmt(r.dur)+' içinde yendi')+' <span class="mute">('+r.sw+'–'+r.sl+')</span></li>'}).join("")+'</ul>'+
+ '<p class="mute" style="font-size:.8rem;margin-top:12px">Demo tablosu: örnek oyuncular ve sizin bu cihazdaki galibiyetleriniz.</p>';
+ $("lb").innerHTML=h}
+
+idle();renderLB();
+</script>
+</body>
+</html>
