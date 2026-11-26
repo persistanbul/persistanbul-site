@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Penaltı Ligi — Pers Learning demo</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ===== GİRİŞ ===== -->
+  <section id="scr-start" class="screen active">
+    <div class="brand">
+      <div class="brand-ball"></div>
+      <div>
+        <div class="brand-kicker">PERS LEARNING · DEMO</div>
+        <h1>PENALTI<br>LİGİ</h1>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hello">Merhaba <b id="lbl-name">Oyuncu</b> 👋</div>
+      <p class="rules">Her soru bir penaltı. <b>Doğru bil</b>, şut hakkını kazan; topu parmağınla kaleye <b>kaydır</b>, golü at. Puanın hem sana hem mağazana yazılır.</p>
+
+      <div id="name-row" class="field hidden">
+        <label for="inp-name">Adın Soyadın</label>
+        <input id="inp-name" type="text" maxlength="40" placeholder="Ad Soyad">
+      </div>
+      <div id="store-known" class="store-known hidden"><span>📍</span><div><small>MAĞAZAN</small><b id="lbl-store"></b></div></div>
+      <div id="store-field" class="field hidden">
+        <label for="sel-store">Mağazan</label>
+        <select id="sel-store"><option value="">Mağazanı seç…</option></select>
+      </div>
+
+      <div class="score-key">
+        <div><span>+50</span>Doğru cevap</div>
+        <div><span>+50</span>Hız bonusu</div>
+        <div><span>+100</span>Gol</div>
+      </div>
+
+      <button id="btn-start" class="btn primary" disabled>MAÇA BAŞLA</button>
+      <button id="btn-board" class="btn ghost">Lig tablosunu gör</button>
+    </div>
+    <div id="demo-note" class="demo-note hidden">Bu bir Pers Learning demosudur. Sorular, renkler, logo ve mağaza listesi kurumunuza göre uyarlanır; SCORM paketi olarak her LMS'e yüklenir.</div>
+  </section>
+
+  <!-- ===== MAÇ ===== -->
+  <section id="scr-game" class="screen">
+    <header class="hud">
+      <div class="hud-box"><small>PUAN</small><b id="hud-score">0</b></div>
+      <div class="hud-dots" id="hud-dots"></div>
+      <div class="hud-box right"><small>GOL</small><b id="hud-goals">0</b></div>
+    </header>
+
+    <div class="stage">
+      <div id="pitch" class="pitch">
+        <canvas id="crowd" class="crowd" aria-hidden="true"></canvas>
+        <div class="boards" aria-hidden="true"><div class="boards-track"><span>PERS LEARNING</span><span>PENALTI LİGİ</span><span>PERS LEARNING</span><span>PENALTI LİGİ</span><span>PERS LEARNING</span><span>PENALTI LİGİ</span><span>PERS LEARNING</span><span>PENALTI LİGİ</span></div></div>
+        <div class="goal-shadow"></div>
+        <div id="goal" class="goal">
+          <div class="net"></div>
+          <div id="keeper" class="keeper">
+            <svg class="gk" viewBox="0 0 120 170" aria-hidden="true">
+              <defs>
+                <linearGradient id="gkShirt" x1="0" x2="1">
+                  <stop offset="0" stop-color="#c94a1c"/><stop offset=".45" stop-color="#ff7a3d"/><stop offset="1" stop-color="#b8401a"/>
+                </linearGradient>
+                <linearGradient id="gkSkin" x1="0" x2="1">
+                  <stop offset="0" stop-color="#d9a074"/><stop offset=".5" stop-color="#f0c39a"/><stop offset="1" stop-color="#c98d62"/>
+                </linearGradient>
+                <radialGradient id="gkShadow"><stop offset="0" stop-color="rgba(0,0,0,.45)"/><stop offset="1" stop-color="rgba(0,0,0,0)"/></radialGradient>
+              </defs>
+              <ellipse cx="60" cy="165" rx="34" ry="5" fill="url(#gkShadow)"/>
+              <g class="body">
+                <!-- bacaklar (çömelmiş hazır duruş) -->
+                <g class="legs" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                  <path d="M52 104 L42 128 L40 152" stroke="#1d2340" stroke-width="13"/>
+                  <path d="M68 104 L78 128 L80 152" stroke="#1d2340" stroke-width="13"/>
+                  <path d="M42.5 127 L40 152" stroke="#ff7a3d" stroke-width="11.5"/>
+                  <path d="M77.5 127 L80 152" stroke="#ff7a3d" stroke-width="11.5"/>
+                  <path d="M42 131 L41.6 135" stroke="#fff" stroke-width="11.5" stroke-linecap="butt"/>
+                  <path d="M78 131 L78.4 135" stroke="#fff" stroke-width="11.5" stroke-linecap="butt"/>
+                </g>
+                <path d="M30 152 Q30 158 36 160 L48 160 Q50 154 46 150 L38 149 Z" fill="#111"/>
+                <path d="M90 152 Q90 158 84 160 L72 160 Q70 154 74 150 L82 149 Z" fill="#111"/>
+                <path d="M33 157 L47 157" stroke="#c6ff3d" stroke-width="1.6"/>
+                <path d="M87 157 L73 157" stroke="#c6ff3d" stroke-width="1.6"/>
+                <!-- şort -->
+                <path d="M45 84 L75 84 L80 108 L63 110 L60 100 L57 110 L40 108 Z" fill="#1d2340"/>
+                <path d="M45 84 L75 84 L75.6 88 L44.4 88 Z" fill="#0f1430"/>
+                <!-- gövde -->
+                <path d="M41 42 Q60 36 79 42 L77 66 Q76 80 74 87 L46 87 Q44 80 43 66 Z" fill="url(#gkShirt)"/>
+                <path d="M53 41 Q60 47 67 41" fill="none" stroke="#1d2340" stroke-width="2.4" stroke-linecap="round"/>
+                <path d="M46 52 L74 52" stroke="rgba(0,0,0,.12)" stroke-width="5"/>
+                <text x="60" y="76" text-anchor="middle" font-family="system-ui,Arial" font-size="17" font-weight="900" fill="#1d2340" opacity=".9">1</text>
+                <!-- kollar (uzun kollu kaleci forması + eldiven) -->
+                <g class="arm arm-l">
+                  <path d="M45 46 L29 64 L21 84" fill="none" stroke="#d65a24" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M45 46 L29 64" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="4" stroke-linecap="round"/>
+                  <path d="M14 82 Q12 92 16 98 Q22 102 27 97 L29 86 Q24 80 14 82 Z" fill="#f4f6fb"/>
+                  <path d="M14 83 L28 86" stroke="#c6ff3d" stroke-width="3"/>
+                  <path d="M16 97 L14 102 M20 99 L19 104 M24 98 L24 103" stroke="#e6e9f2" stroke-width="3" stroke-linecap="round"/>
+                </g>
+                <g class="arm arm-r">
+                  <path d="M75 46 L91 64 L99 84" fill="none" stroke="#d65a24" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M75 46 L91 64" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="4" stroke-linecap="round"/>
+                  <path d="M106 82 Q108 92 104 98 Q98 102 93 97 L91 86 Q96 80 106 82 Z" fill="#f4f6fb"/>
+                  <path d="M106 83 L92 86" stroke="#c6ff3d" stroke-width="3"/>
+                  <path d="M104 97 L106 102 M100 99 L101 104 M96 98 L96 103" stroke="#e6e9f2" stroke-width="3" stroke-linecap="round"/>
+                </g>
+                <!-- boyun + baş -->
+                <rect x="55" y="29" width="10" height="11" rx="3" fill="#c98d62"/>
+                <ellipse cx="48.5" cy="22" rx="2.6" ry="3.6" fill="#d9a074"/>
+                <ellipse cx="71.5" cy="22" rx="2.6" ry="3.6" fill="#d9a074"/>
+                <ellipse cx="60" cy="20" rx="11.5" ry="13" fill="url(#gkSkin)"/>
+                <path d="M48.5 18 Q48 6 60 5.5 Q72 6 71.5 18 Q69 11 60 11 Q51 11 48.5 18 Z" fill="#2b1d14"/>
+                <path d="M53 17.2 L57.5 16.6 M62.5 16.6 L67 17.2" stroke="#2b1d14" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="55.6" cy="20.4" r="1.25" fill="#1b130d"/><circle cx="64.4" cy="20.4" r="1.25" fill="#1b130d"/>
+                <path d="M60 21 L59 25.5 L61 25.8" fill="none" stroke="#b07850" stroke-width="1" stroke-linecap="round"/>
+                <path d="M56.5 28.6 Q60 30 63.5 28.6" fill="none" stroke="#8c4f36" stroke-width="1.3" stroke-linecap="round"/>
+                <path d="M50 24 Q52 32 60 33 Q68 32 70 24" fill="none" stroke="rgba(43,29,20,.35)" stroke-width="2.2"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="box-line"></div>
+        <div class="spot"></div>
+        <div id="ball-shadow" class="ball-shadow"></div>
+        <div id="ball" class="ball"><div class="ball-skin"></div></div>
+        <div id="aim" class="aim hidden"></div>
+        <div id="swipe-hint" class="swipe-hint hidden"><span>☝️</span>Topu kaleye doğru kaydır</div>
+        <div id="banner" class="banner hidden"></div>
+      </div>
+
+      <!-- Soru kartı -->
+      <div id="qcard" class="qcard hidden">
+        <div class="q-top">
+          <span id="q-no">PENALTI 1/10</span>
+          <span class="timer"><i id="q-timer-bar"></i><b id="q-timer">20</b></span>
+        </div>
+        <div id="q-text" class="q-text"></div>
+        <div id="q-opts" class="q-opts"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MAÇ SONU / LİG ===== -->
+  <section id="scr-end" class="screen">
+    <div id="end-head" class="end-head">
+      <small>MAÇ SONU</small>
+      <div class="end-score"><b id="end-score">0</b><span>puan</span></div>
+      <div class="end-stats">
+        <div><b id="end-correct">0</b><small>doğru</small></div>
+        <div><b id="end-goals">0</b><small>gol</small></div>
+        <div><b id="end-best">0</b><small>en iyi skorun</small></div>
+      </div>
+      <p id="end-msg" class="end-msg"></p>
+    </div>
+
+    <div class="card board">
+      <div class="tabs">
+        <button class="tab active" data-tab="players">Oyuncu Ligi</button>
+        <button class="tab" data-tab="stores">Mağaza Ligi</button>
+      </div>
+      <div id="board-season" class="season"></div>
+      <div id="board-players" class="board-list"></div>
+      <div id="board-stores" class="board-list hidden"></div>
+      <p class="board-note">Oyuncu ligi: her oyuncunun en iyi maç skoru. Mağaza ligi: o mağazadaki oyuncuların en iyi skorlarının toplamı — ne kadar çok kişi oynarsa mağaza o kadar yükselir.</p>
+    </div>
+
+    <button id="btn-again" class="btn primary">RÖVANŞ</button>
+    <button id="btn-home" class="btn ghost">Ana ekran</button>
+  </section>
+
+</div>
+<script src="config.js"></script>
+<script src="questions.js"></script>
+<script src="scorm.js"></script>
+<script src="crowd.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
