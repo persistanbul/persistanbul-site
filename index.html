@@ -181,6 +181,17 @@ section.unit.who{--c:var(--white);--glow:22%}
 .person .role b{font-weight:600}
 @media (max-width:900px){.team{grid-template-columns:1fr}}
 
+/* REFERANSLAR */
+.refs{max-width:1240px;margin:110px auto 0}
+.refs h3{font-size:clamp(28px,2.8vw,42px);font-weight:300;margin:14px 0 36px}
+.refs h3 strong{font-weight:600}
+.ref-grid{list-style:none;margin:0;padding:0 1px 1px 0;display:flex;flex-wrap:wrap;justify-content:center}
+.ref-grid li{flex:0 0 calc(100% / 6);box-sizing:border-box;margin:0 -1px -1px 0;display:flex;align-items:center;justify-content:center;text-align:center;min-height:96px;padding:18px 16px;border:1px solid var(--line);font-size:17px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;line-height:1.3;color:rgba(255,255,255,.55);transition:color .3s,background .3s}
+@media (max-width:1100px){.ref-grid li{flex-basis:25%}}
+@media (max-width:800px){.ref-grid li{flex-basis:calc(100% / 3)}}
+.ref-grid li:hover{color:#fff;background:color-mix(in srgb,var(--c) 12%,transparent)}
+@media (max-width:600px){.ref-grid li{flex-basis:50%;font-size:14px;min-height:80px;letter-spacing:.1em}}
+
 /* CONTACT */
 .contact{padding:150px 40px;text-align:center}
 .contact h2{font-size:clamp(40px,5vw,78px);font-weight:300;line-height:1.05}
@@ -279,6 +290,11 @@ footer img{height:30px;width:auto;opacity:.9}
       <div class="svc wide"><div class="i">C</div><h3>Stüdyo Kiralama</h3><p>Çekimleriniz için saatlik ya da günlük stüdyo ve ekipman.</p>
         <div class="chips"><span class="chip">Saatlik</span><span class="chip">Günlük</span><span class="chip">Ekipmanlı</span></div></div>
     </div>
+  </div>
+  <div class="refs reveal">
+    <div class="eyebrow">Referanslar</div>
+    <h3>Birlikte <strong>çalıştığımız markalar.</strong></h3>
+    <ul class="ref-grid" lang="en"><li>Beymen Club</li><li>Simit Sarayı</li><li>Penti</li><li>Beymen Beauty Studio</li><li>Domino&#x27;s</li><li>Coffy</li><li>Urban Care</li><li>Gratis</li><li>Atelier Rebul</li><li>Arcon Kozmetik</li><li>Te-Ha Kozmetik</li><li>Beaute Kozmetik</li><li>Elca Kozmetik</li><li>Up&amp;Fit</li><li>Kısmetce</li><li>5in1 Canpolat</li><li>Dilexa</li><li>Creadenta Neslihan Canpolat</li><li>Boyner</li><li>Acıbadem Bupa</li><li>Alem Dergisi</li><li>Alix Avien</li><li>Aslı Bisiklet</li><li>Beymen Business</li><li>Altınyıldız Classics</li><li>Doğuş Holding</li><li>Gardırop Magazine</li><li>Hemington</li><li>Joker Baby</li><li>Kahve Dünyası</li><li>Pınar Süt</li><li>Tarım Kredi</li><li>Nocturne</li><li>Lizay</li><li>Flormar</li><li>Sinoz</li><li>Suwen</li></ul>
   </div>
 </section>
 
